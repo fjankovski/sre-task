@@ -19,15 +19,19 @@ Simple Node.js application with health/metrics endpoints, dockerized and ready f
 ## 1. Running Locally
 
 ***Go to application dir***
+
 `cd app`
 
 ***Install dependencies***
+
 `npm install`
 
 ***Start application***
+
 `npm start`
 
 ***You should see the app running with the following:***
+
 Expected output:
 ``` 
     > sre-health-app@1.0,0 start
@@ -39,33 +43,43 @@ Expected output:
 ### Testing endpoints:
 
 ***Health check***
+
 `curl http://localhost:3000/health`
+
 ` {"status":"ok","timestamp":"2025-11-27T12:00:00.000Z"}`
 
 ***Metrics***
+
 `curl http://localhost:3000/metrics`
+
 `{"total_requests":2,"uptime_seconds":60}`
 
 ## 2. Running with Docker
 
 
 ***Build image***
+
 `docker build -t sre-app:latest ./app`
 
 ***Run container (port mapping 80 -> 3000)***
+
 `docker run -d -p 80:3000 --name sre-app sre-app:latest`
 
 #### Testing
 ***health endpoint***
+
 `curl http://localhost/health`
 
 ***metrics endpoint***
+
 `curl http://localhost/metrics`
 
 ***Check container health status***
+
 `docker inspect --format='{{.State.Health.Status}}' sre-app`
 
 ***Cleanup***
+
 `docker stop sre-app && docker rm sre-app`
 
 
@@ -76,7 +90,8 @@ GitHub Actions automatically builds and pushes Docker image to GitHub Container 
 ### Repository Setup
 
 1. Create GitHub repository and push code:
- # You might have to setup ssh keys and add them to github before you're able to push your changes
+
+**You might have to setup ssh keys and add them to github before you're able to push your changes**
 ```
 git init
 git add .
@@ -112,13 +127,14 @@ git push -u origin master
 ### Design Decisions
 
 **Terraform hardcoded values:**
-launch_type = "FARGATE" - explicitly required by the task
-network_mode = "awsvpc" - mandatory for Fargate
-Log retention = 7 days - reasonable default for dev/test environment
+
+- launch_type = "FARGATE" - explicitly required by the task
+- network_mode = "awsvpc" - mandatory for Fargate
+- Log retention = 7 days - reasonable default for dev/test environment
 
 **Other decisions:**
-Mock AWS provider - enables "terraform plan" without real credentials
-All resources tagged with "SRE_TASK" # task requirement
+- Mock AWS provider - enables "terraform plan" without real credentials
+- All resources tagged with "SRE_TASK" # task requirement
 
 ### Production Notes
 
@@ -132,16 +148,21 @@ For real AWS deployment you need to:
 ### Running Terraform
 
 ***Go to terraform dir***
+
 `cd terraform`
 
 ***Initialize and download providers***
-terraform init      
+
+`terraform init`    
 
 ***Validate configuration***
+
 `terraform validate`  
 
 ***Preview what will be created***
+
 `terraform plan`
+
 ```
  Expected output: "Plan: 7 to add, 0 to change, 0 to destroy."
 ```
