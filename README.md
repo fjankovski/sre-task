@@ -1,4 +1,4 @@
-# SRE Technical Task - Node.js App + ECS Fargate Module
+# Technical project - Node.js App + ECS Fargate Module
 
 Simple Node.js application with health/metrics endpoints, dockerized and ready for deployment on AWS ECS Fargate.
 
@@ -7,7 +7,6 @@ Simple Node.js application with health/metrics endpoints, dockerized and ready f
 
 ## Short description 
 - I picked NodeJS because it's lightweigt, has a simple setup and the Alpine Docker image is very small.For simple health/metrics API it's easy to develop.
-- Within the app, port was set to 3000 with a variable. Even though it's requested in the task, I chose for it not to be hardcoded because it's easier to maintain and troubleshoot if any issues occure.
 - The app is written in a way that will count everytime a endpoint is run (health and metrics).
 - When health metric is run, it will give the satus of the application (to check if it's working) and     date & time when the /health metric was run
 - When metric is run, it will provide the total amount of requests since the app is started and it's uptime.
